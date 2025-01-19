@@ -1,0 +1,74 @@
+<div class="sku-list-container">
+    <h2>SKU List</h2>
+  
+    <!-- Sort Button -->
+    <button mat-raised-button (click)="toggleSortOrder()">
+      <mat-icon>sort</mat-icon> Sort Order: {{ sortOrder === 'asc' ? 'Ascending' : 'Descending' }}
+    </button>
+
+    <button mat-raised-button color="accent" (click)="exportAsExcel()">
+      Export to Excel
+    </button>
+
+    <h4>Select Vendors</h4>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose Vendors</mat-label>
+      <mat-select [(ngModel)]="selectedVendors" multiple>
+        <mat-option *ngFor="let vendor of vendorHeaders" [value]="vendor">{{ vendor }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <!-- Price Levels Dropdown -->
+    <h4>Select Price Level</h4>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose Price Level</mat-label>
+      <mat-select [(ngModel)]="selectedPriceLevels.cheapest">
+        <mat-option value="true">Cheapest Price</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <!-- SKU Table with Angular Material -->
+    <table mat-table [dataSource]="skus" matSort>
+  
+      <!-- Columns -->
+      <ng-container matColumnDef="sku">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> SKU </th>
+        <td mat-cell *matCellDef="let sku"> {{ sku.sku }} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let sku"> {{ sku.name }} </td>
+      </ng-container>
+  
+      <!-- Dynamically display vendor columns -->
+      <ng-container *ngFor="let vendor of vendorHeaders" [matColumnDef]="vendor">
+        <th mat-header-cell *matHeaderCellDef> {{ vendor }} </th>
+        <td mat-cell *matCellDef="let sku" 
+        [ngClass]="{
+          'cheapest-price': sku.vendors[vendor] === getCheapestPrice(sku.vendors),
+          'second-cheapest-price': sku.vendors[vendor] === getSecondCheapestPrice(sku.vendors),
+          'third-cheapest-price': sku.vendors[vendor] === getThirdCheapestPrice(sku.vendors)
+        }">
+      {{ sku.vendors[vendor] || 'N/A' }}
+    </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="uploadDate">
+        <th mat-header-cell *matHeaderCellDef> Upload Date </th>
+        <td mat-cell *matCellDef="let sku"> {{ sku.uploadDate | date }} </td>
+      </ng-container>
+  
+      <!-- Table Header -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  
+      <!-- Table Body -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <!-- Error Message -->
+    <div *ngIf="skus.length === 0">
+      <p>No SKUs available to display.</p>
+    </div>
+  </div>
+  

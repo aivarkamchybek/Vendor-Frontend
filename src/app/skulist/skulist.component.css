@@ -1,0 +1,114 @@
+.sku-list-container {
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  position: relative; /* Ensures the dropdown is positioned relative to this container */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+}
+
+td {
+  background-color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+button {
+  margin-bottom: 15px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+}
+
+button:hover {
+  background-color: #303f9f;
+}
+
+mat-icon {
+  margin-right: 5px;
+}
+
+mat-sort-header {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+mat-sort-header:hover {
+  color: #3f51b5;
+}
+
+mat-header-cell {
+  font-weight: bold;
+}
+
+mat-row {
+  transition: background-color 0.3s;
+}
+
+.sku-list-container .error-message {
+  color: red;
+  font-size: 16px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.cheapest-price {
+  background-color: #06ec3c; /* Green or any color for the cheapest price */
+  font-weight: bold;
+}
+
+.second-cheapest-price {
+  background-color: rgb(69, 58, 228); /* Example style */
+  font-weight: bold;
+}
+
+.third-cheapest-price {
+  background-color: #db1461; /* Red or any color for the third cheapest price */
+}
+
+mat-form-field {
+  margin-bottom: 20px;
+}
+
+/* Customizing mat-label */
+mat-label {
+  font-weight: bold;
+  color: #263fcf; /* Custom color for the label */
+  font-size: 16px;
+}
+
+/* Position dropdown to the right corner */
+.dropdown-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
