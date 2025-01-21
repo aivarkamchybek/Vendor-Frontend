@@ -7,8 +7,8 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver'; // Import saveAs from file-saver
 
 export interface SKU {
-  sku: string;
   name: string;
+  sku: string;
   price: number;
   vendors: { [key: string]: number };
   uploadDate: string;
@@ -23,7 +23,7 @@ export class SkulistComponent implements OnInit {
   skus: SKU[] = [];
   sortOrder: string = 'asc';
   vendorHeaders: string[] = [];
-  displayedColumns: string[] = ['sku', 'name', 'uploadDate']; // Initial columns
+  displayedColumns: string[] = ['index', 'name', 'sku', 'uploadDate']; // Initial columns
   selectedVendors: string[] = [];  // Holds selected vendor names
 
   selectedPriceLevels: { cheapest: boolean} = {
@@ -46,7 +46,7 @@ export class SkulistComponent implements OnInit {
           this.vendorHeaders = this.getVendorHeaders(this.skus);
   
           // Update displayed columns to include vendor headers dynamically
-          this.displayedColumns = ['sku', 'name', ...this.vendorHeaders, 'uploadDate'];
+          this.displayedColumns = ['index', 'name', 'sku', ...this.vendorHeaders, 'uploadDate'];
         }
       },
       error: (err) => {
@@ -105,8 +105,11 @@ export class SkulistComponent implements OnInit {
   exportAsExcel(): void {
     const dataToExport = this.skus
       .map((sku, index) => {
-        // Apply vendor filter
-        const filteredVendors = this.selectedVendors; // Directly use the selectedVendors array
+
+          // Determine the vendors to include
+      const filteredVendors = this.selectedVendors.length > 0
+      ? this.selectedVendors
+      : Object.keys(sku.vendors); // If no vendors are selected, include all vendors
 
         
         // Apply price level filters
@@ -126,8 +129,10 @@ export class SkulistComponent implements OnInit {
           }
         };
 
-        // Check if SKU matches selected price levels
-        const isValidSKU = this.checkSelectedPriceLevels(filteredPrices, isValidPriceLevel);
+      // Determine if the SKU matches selected price levels or include all if no levels are selected
+      const isValidSKU = this.selectedPriceLevels.cheapest
+        ? this.checkSelectedPriceLevels(filteredPrices, isValidPriceLevel)
+        : true; // Include all SKUs if no price level is selected
 
         if (isValidSKU) {
           const vendorsData = filteredVendors.reduce((acc, vendor) => {
@@ -178,4 +183,6 @@ export class SkulistComponent implements OnInit {
     const data: Blob = new Blob([buffer], { type: 'application/octet-stream' });
     saveAs(data, fileName);
   }
+  
+  
 }
