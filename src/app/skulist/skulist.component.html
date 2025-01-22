@@ -1,27 +1,34 @@
 <div class="sku-list-container">
 
-    <button mat-raised-button color="accent" (click)="exportAsExcel()">
-      Export to Excel
-    </button>
-
-    <!-- Add a Save button to the template -->
-<button mat-raised-button color="primary" (click)="saveFileToBackend()">Save Excel to Backend</button>
-
-
-    <mat-form-field appearance="fill" class="compact-field">
-      <mat-label>Choose Vendors</mat-label>
-      <mat-select [(ngModel)]="selectedVendors" multiple>
-        <mat-option *ngFor="let vendor of vendorHeaders" [value]="vendor">{{ vendor }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    
-    <!-- Price Levels Dropdown -->
-    <mat-form-field appearance="fill" class="compact-field">
-      <mat-label>Choose Price Level</mat-label>
-      <mat-select [(ngModel)]="selectedPriceLevels.cheapest">
-        <mat-option value="true">Cheapest Price</mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="form-container">
+    <!-- Left-aligned elements -->
+    <div class="left-side">
+      <button mat-raised-button color="accent" (click)="exportAsExcel()">
+        Export to Excel
+      </button>
+  
+      <mat-form-field appearance="fill" class="compact-field">
+        <mat-label>Choose Vendors</mat-label>
+        <mat-select [(ngModel)]="selectedVendors" multiple>
+          <mat-option *ngFor="let vendor of vendorHeaders" [value]="vendor">{{ vendor }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Price Levels Dropdown -->
+      <mat-form-field appearance="fill" class="compact-field">
+        <mat-label>Choose Price Level</mat-label>
+        <mat-select [(ngModel)]="selectedPriceLevels.cheapest">
+          <mat-option value="true">Cheapest Price</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <!-- Right-aligned button -->
+    <div class="right-side">
+      <button mat-raised-button color="primary" (click)="saveFileToBackend()">Save Excel Report</button>
+      <button mat-raised-button color="warn" (click)="deleteAllData()">Delete All Data</button>
+    </div>
+  </div>
     <!-- SKU Table with Angular Material -->
     <table mat-table [dataSource]="skus" matSort>
 

@@ -127,3 +127,29 @@ mat-label {
 .mat-form-field-label {
   font-size: 0.9rem; /* Smaller label font */
 }
+
+
+.form-container {
+  display: flex;
+  justify-content: space-between; /* Distribute left and right groups */
+  align-items: center; /* Align elements vertically */
+  flex-wrap: wrap; /* Ensure responsiveness */
+}
+
+.left-side {
+  display: flex;
+  gap: 1rem; /* Add space between left-side elements */
+  margin-top: 2rem; /* Move it slightly down */
+ 
+}
+
+.left-side button {
+  min-width: 150px; /* Make the "Export to Excel" button wider */
+  margin-top: 1rem; /* Move it slightly down */
+}
+
+.right-side {
+  display: flex;
+  justify-content: flex-end; /* Align the button to the right */
+  gap: 1rem; /* Add space between left-side elements */
+}

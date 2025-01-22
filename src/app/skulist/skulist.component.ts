@@ -154,8 +154,8 @@ export class SkulistComponent implements OnInit {
 
           return {
             Index: index + 1,
-            SKU: sku.sku,
             Name: sku.name,
+            SKU: sku.sku,
             ...vendorsData, // Dynamically include vendor data
             UploadDate: sku.uploadDate
           };
@@ -219,8 +219,8 @@ export class SkulistComponent implements OnInit {
   
           return {
             Index: index + 1,
-            SKU: sku.sku,
             Name: sku.name,
+            SKU: sku.sku,
             ...vendorsData,
             UploadDate: sku.uploadDate
           };
@@ -281,6 +281,27 @@ export class SkulistComponent implements OnInit {
     return window.btoa(binaryString);
   }
   
-  
-
+  deleteAllData(): void {
+    if (confirm("Are you sure you want to delete all data? This action cannot be undone.")) {
+      this.skuService.deleteAllData().subscribe({
+        next: () => {
+          this.skus = []; // Clear the table data
+          this.snackBar.open("All data has been deleted successfully!", "Close", {
+            duration: 3000,
+            verticalPosition: "top",
+            horizontalPosition: "center",
+          });
+          this.loadSkus(); // Reload the SKU data to update the page
+        },
+        error: (err) => {
+          console.error("Error deleting all data:", err);
+          this.snackBar.open("Error deleting data!", "Close", {
+            duration: 3000,
+            verticalPosition: "top",
+            horizontalPosition: "center",
+          });
+        },
+      });
+    }
+  }
 }

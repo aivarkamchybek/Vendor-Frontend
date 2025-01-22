@@ -20,6 +20,10 @@ export class GetallskusService {
     return this.http.get<any>(`${this.apiUrl}/api/skus`, { params });
   }
 
+  deleteAllData(): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/delete-all-data`);
+  }
+
   // Method to save Excel file to the backend
   saveExcelFile(fileName: string, fileContent: string): Observable<any> {
     const requestPayload = {
