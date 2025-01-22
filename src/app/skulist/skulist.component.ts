@@ -229,7 +229,12 @@ export class SkulistComponent implements OnInit {
       })
       .filter(item => item !== null);
   
-    const fileName = 'SKUs.xlsx';
+  // Format the date
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  // Generate the filename with the current date
+  const fileName = `Report_${formattedDate}.xlsx`;
     const worksheet = XLSX.utils.json_to_sheet(dataToExport);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'SKUs');
