@@ -17,7 +17,7 @@ import { UploadExcelComponent } from './upload-excel/upload-excel.component'; //
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SavedFileComponent } from './saved-file/saved-file.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -39,8 +39,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     FormsModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatInputModule,
-    MatSnackBar
+    MatInputModule, 
+    MatSnackBarModule
     
   ],
   providers: [],
