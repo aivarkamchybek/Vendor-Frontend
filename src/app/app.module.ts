@@ -12,12 +12,20 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import the SKUComponent
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UploadExcelComponent } from './upload-excel/upload-excel.component'; // Import the SKUComponent
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { SavedFileComponent } from './saved-file/saved-file.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    SkulistComponent
+    SkulistComponent,
+    UploadExcelComponent,
+    SavedFileComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +38,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
     MatIconModule,
     FormsModule,
     MatSelectModule,
-
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBar
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

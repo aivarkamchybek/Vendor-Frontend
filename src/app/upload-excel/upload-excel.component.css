@@ -1,0 +1,53 @@
+.upload-container {
+    max-width: 600px;
+    margin: 163px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-field {
+    width: 100%;
+  }
+  
+  button {
+    align-self: center;
+    width: 200px;
+  }
+  
+  .error, .success {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  mat-icon {
+    margin-right: 10px;
+  }
+  

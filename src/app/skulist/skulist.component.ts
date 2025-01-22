@@ -5,6 +5,7 @@ import { GetallskusService } from '../getallskus.service';
 // For xlsx library
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver'; // Import saveAs from file-saver
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface SKU {
   name: string;
@@ -13,6 +14,13 @@ export interface SKU {
   vendors: { [key: string]: number };
   uploadDate: string;
 }
+
+export interface SavedExcelFile {
+  fileId: number;
+  fileName: string;
+  uploadDate: string;
+}
+
 
 @Component({
   selector: 'app-skulist',
@@ -26,12 +34,16 @@ export class SkulistComponent implements OnInit {
   displayedColumns: string[] = ['index', 'name', 'sku', 'uploadDate']; // Initial columns
   selectedVendors: string[] = [];  // Holds selected vendor names
 
+
+  savedExcelFiles: SavedExcelFile[] = [];
+  
+
   selectedPriceLevels: { cheapest: boolean} = {
     cheapest: false
   };
   @ViewChild(MatSort) sort: MatSort | undefined;
 
-  constructor(private skuService: GetallskusService) {}
+  constructor(private skuService: GetallskusService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.loadSkus();
@@ -184,5 +196,86 @@ export class SkulistComponent implements OnInit {
     saveAs(data, fileName);
   }
   
+
+  saveFileToBackend(): void {
+    const dataToExport = this.skus
+      .map((sku, index) => {
+        const filteredVendors = this.selectedVendors.length > 0
+          ? this.selectedVendors
+          : Object.keys(sku.vendors); // If no vendors are selected, include all vendors
   
+        const filteredPrices = filteredVendors.map(vendor => sku.vendors[vendor]);
+        const cheapestPrice = this.getCheapestPrice(sku.vendors);
+  
+        const isValidSKU = this.selectedPriceLevels.cheapest
+          ? this.checkSelectedPriceLevels(filteredPrices, (price: number) => price === cheapestPrice)
+          : true;
+  
+        if (isValidSKU) {
+          const vendorsData = filteredVendors.reduce((acc, vendor) => {
+            acc[vendor] = sku.vendors[vendor] || '';
+            return acc;
+          }, {} as { [key: string]: string | number });
+  
+          return {
+            Index: index + 1,
+            SKU: sku.sku,
+            Name: sku.name,
+            ...vendorsData,
+            UploadDate: sku.uploadDate
+          };
+        }
+        return null;
+      })
+      .filter(item => item !== null);
+  
+    const fileName = 'SKUs.xlsx';
+    const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'SKUs');
+  
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    
+    // Convert the buffer to Base64 to send to the backend
+    const base64File = this.arrayBufferToBase64(excelBuffer);
+    
+    // Call the save method in the service
+    this.skuService.saveExcelFile(fileName, base64File).subscribe({
+      next: (response) => {
+        console.log('File saved successfully:', response);
+        // Show success message using MatSnackBar
+        this.snackBar.open('File saved successfully!', 'Close', {
+          duration: 3000, // 3 seconds
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
+      },
+      error: (err) => {
+        console.error('Error saving file:', err);
+        // Show error message using MatSnackBar
+        this.snackBar.open('Error saving file. Please try again!', 'Close', {
+          duration: 3000, // 3 seconds
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          panelClass: ['error-snackbar'] // Optional: style for error messages
+        });
+      }
+    });
+  }
+  
+  arrayBufferToBase64(buffer: ArrayBuffer): string {
+    const uint8Array = new Uint8Array(buffer);
+    let binaryString = '';
+  
+    // Build a binary string from the uint8Array
+    uint8Array.forEach(byte => {
+      binaryString += String.fromCharCode(byte);
+    });
+  
+    // Return the Base64 encoded string
+    return window.btoa(binaryString);
+  }
+  
+  
+
 }

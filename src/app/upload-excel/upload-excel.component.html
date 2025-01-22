@@ -1,0 +1,33 @@
+<div class="upload-container">
+    <h2 class="title">Upload Vendor Excel</h2>
+  
+    <form (ngSubmit)="onUpload()" #uploadForm="ngForm" class="upload-form">
+      
+      <!-- Vendor Name Input -->
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Vendor Name</mat-label>
+        <input matInput type="text" id="vendorName" [(ngModel)]="vendorName" name="vendorName" required />
+        <mat-error *ngIf="!vendorName">Vendor Name is required</mat-error>
+      </mat-form-field>
+  
+      <!-- Excel File Input -->
+      <div class="file-input">
+        <label for="file" class="file-label">Excel File</label>
+        <input type="file" id="file" (change)="onFileChange($event)" accept=".xlsx" required />
+        <mat-error *ngIf="!file">Excel File is required</mat-error>
+      </div>
+  
+      <button mat-raised-button color="primary" type="submit" [disabled]="!uploadForm.form.valid">Upload</button>
+    </form>
+  
+    <div *ngIf="errorMessage" class="error">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ errorMessage }}</span>
+    </div>
+  
+    <div *ngIf="successMessage" class="success">
+      <mat-icon>check_circle_outline</mat-icon>
+      <span>{{ successMessage }}</span>
+    </div>
+  </div>
+  

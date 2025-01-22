@@ -112,3 +112,18 @@ mat-label {
   right: 0;
   z-index: 1;
 }
+
+.compact-field {
+  width: 100%; /* Adjust width as per requirement */
+  max-width: 300px; /* Control max width for smaller dropdown */
+  font-size: 0.875rem; /* Smaller font size */
+  padding: 4px; /* Reduce padding for compactness */
+}
+
+.mat-select {
+  font-size: 0.875rem; /* Smaller font inside the select */
+}
+
+.mat-form-field-label {
+  font-size: 0.9rem; /* Smaller label font */
+}
