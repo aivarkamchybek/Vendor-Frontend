@@ -9,7 +9,12 @@
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 50px;
+    background-color: #5a8869; /* Light gray background for better contrast */
+    border: 1px solid #ddd; /* Optional border for structure */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    overflow: hidden; /* Ensures rounded corners appear clean */
   }
   
   th, td {
@@ -46,6 +51,7 @@
     font-size: 16px;
     display: inline-flex;
     align-items: center;
+    border: 1px solid #ddd; /* Add border to the button for consistency */
   }
   
   .mat-button:hover {
@@ -95,7 +101,7 @@
   .mat-button {
     background-color: #4caf50; /* Green color */
     color: white;
-    border: none;
+    border: 1px solid #ddd; /* Ensure button has border */
     padding: 8px 16px;
     cursor: pointer;
     font-size: 16px;

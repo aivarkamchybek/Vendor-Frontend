@@ -12,6 +12,7 @@ export interface SKU {
   sku: string;
   price: number;
   vendors: { [key: string]: number };
+  quantity: number;
   uploadDate: string;
 }
 
@@ -31,8 +32,10 @@ export class SkulistComponent implements OnInit {
   skus: SKU[] = [];
   sortOrder: string = 'asc';
   vendorHeaders: string[] = [];
-  displayedColumns: string[] = ['index', 'name', 'sku', 'uploadDate']; // Initial columns
+  displayedColumns: string[] = ['index', 'name', 'sku', 'quantity', 'uploadDate']; // Initial columns
   selectedVendors: string[] = [];  // Holds selected vendor names
+
+  loading: boolean = false;
 
 
   savedExcelFiles: SavedExcelFile[] = [];
@@ -50,6 +53,7 @@ export class SkulistComponent implements OnInit {
   }
 
   loadSkus(): void {
+    this.loading = true; // Start loading
     this.skuService.getAllSkus(this.sortOrder).subscribe({
       next: (data: any) => {
         if (Array.isArray(data.$values)) {
@@ -58,11 +62,13 @@ export class SkulistComponent implements OnInit {
           this.vendorHeaders = this.getVendorHeaders(this.skus);
   
           // Update displayed columns to include vendor headers dynamically
-          this.displayedColumns = ['index', 'name', 'sku', ...this.vendorHeaders, 'uploadDate'];
+          this.displayedColumns = ['index', 'name', 'sku', 'quantity', ...this.vendorHeaders, 'uploadDate'];
         }
+        this.loading = false; // Stop loading
       },
       error: (err) => {
         console.error('Error fetching SKUs:', err);
+        this.loading = false; // Stop loading
       }
     });
   }
@@ -156,6 +162,7 @@ export class SkulistComponent implements OnInit {
             Index: index + 1,
             Name: sku.name,
             SKU: sku.sku,
+            Quantity: sku.quantity,
             ...vendorsData, // Dynamically include vendor data
             UploadDate: sku.uploadDate
           };
@@ -221,6 +228,7 @@ export class SkulistComponent implements OnInit {
             Index: index + 1,
             Name: sku.name,
             SKU: sku.sku,
+            Quatity: sku.quantity,
             ...vendorsData,
             UploadDate: sku.uploadDate
           };
@@ -283,8 +291,10 @@ export class SkulistComponent implements OnInit {
   
   deleteAllData(): void {
     if (confirm("Are you sure you want to delete all data? This action cannot be undone.")) {
+      this.loading = true;
       this.skuService.deleteAllData().subscribe({
         next: () => {
+          this.loading = false;
           this.skus = []; // Clear the table data
           this.snackBar.open("All data has been deleted successfully!", "Close", {
             duration: 3000,
@@ -294,6 +304,7 @@ export class SkulistComponent implements OnInit {
           this.loadSkus(); // Reload the SKU data to update the page
         },
         error: (err) => {
+          this.loading = false;
           console.error("Error deleting all data:", err);
           this.snackBar.open("Error deleting data!", "Close", {
             duration: 3000,

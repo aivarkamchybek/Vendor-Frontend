@@ -19,6 +19,12 @@
   
       <button mat-raised-button color="primary" type="submit" [disabled]="!uploadForm.form.valid">Upload</button>
     </form>
+
+      <!-- Loading Spinner -->
+  <div *ngIf="loading" class="loading-overlay">
+    <mat-spinner [diameter]="50"></mat-spinner>
+    <span>Uploading...</span>
+  </div>
   
     <div *ngIf="errorMessage" class="error">
       <mat-icon>error_outline</mat-icon>

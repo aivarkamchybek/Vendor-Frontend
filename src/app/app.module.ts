@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SavedFileComponent } from './saved-file/saved-file.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule, 
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
     
   ],
   providers: [],

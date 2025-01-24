@@ -9,7 +9,12 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: -10px;
+  background-color: #f9f9f9; /* Light gray background for better contrast */
+  border: 1px solid #ddd; /* Optional border for structure */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  overflow: hidden; /* Ensures rounded corners appear clean */
 }
 
 th, td {
@@ -152,4 +157,51 @@ mat-label {
   display: flex;
   justify-content: flex-end; /* Align the button to the right */
   gap: 1rem; /* Add space between left-side elements */
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-overlay mat-spinner {
+  margin-right: 10px;
+}
+
+.sku-list-container {
+  position: relative;
+}
+
+
+.no-skus-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px; /* Adjust height based on the table container */
+  background-color: #f9f9f9; /* Light gray background for better contrast */
+  border: 1px solid #ddd; /* Optional border for structure */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.no-skus-message {
+  font-size: 18px; /* Adjust font size */
+  font-weight: 500; /* Slightly bold */
+  color: #555; /* Neutral text color */
+  text-align: center;
 }

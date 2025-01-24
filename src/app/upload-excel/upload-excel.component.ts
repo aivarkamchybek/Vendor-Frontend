@@ -9,6 +9,7 @@ import { UploadService } from '../service_upload/upload.service';
 export class UploadExcelComponent {
   vendorName: string = '';
   file: File | null = null;
+  loading: boolean = false;
   errorMessage: string = '';
   successMessage: string = '';
 
@@ -27,8 +28,11 @@ export class UploadExcelComponent {
       return;
     }
 
+    this.loading = true; // Start loading
+
     this.uploadService.uploadFile(this.file, this.vendorName).subscribe({
       next: (response) => {
+        this.loading = false; // Stop loading
         // Check if the response is successful (status 200)
         if (response.status === 200) {
           this.successMessage = 'File uploaded successfully!';

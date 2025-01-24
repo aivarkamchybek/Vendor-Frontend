@@ -1,11 +1,13 @@
 <div class="sku-list-container">
 
+    <!-- Loading Overlay -->
+    <div *ngIf="loading" class="loading-overlay">
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+
   <div class="form-container">
     <!-- Left-aligned elements -->
     <div class="left-side">
-      <button mat-raised-button color="accent" (click)="exportAsExcel()">
-        Export to Excel
-      </button>
   
       <mat-form-field appearance="fill" class="compact-field">
         <mat-label>Choose Vendors</mat-label>
@@ -21,16 +23,28 @@
           <mat-option value="true">Cheapest Price</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <button mat-raised-button style="background-color: #3122b4; color: white;" (click)="exportAsExcel()">
+        Download
+      </button>
+
     </div>
   
     <!-- Right-aligned button -->
     <div class="right-side">
-      <button mat-raised-button color="primary" (click)="saveFileToBackend()">Save Excel Report</button>
+      <button mat-raised-button style="background-color: #3122b4; color: white;" (click)="saveFileToBackend()">Save Excel Report</button>
       <button mat-raised-button color="warn" (click)="deleteAllData()">Delete All Data</button>
     </div>
+
+      <!-- Spinner displayed during loading -->
+      <div *ngIf="loading" class="loading-overlay">
+      <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+
+
   </div>
-    <!-- SKU Table with Angular Material -->
-    <table mat-table [dataSource]="skus" matSort>
+  <!-- SKU Table with Angular Material -->
+  <table mat-table [dataSource]="skus" matSort *ngIf="!loading">
 
           <!-- Index Column -->
     <ng-container matColumnDef="index">
@@ -45,10 +59,16 @@
 
         <!-- Columns -->
         <ng-container matColumnDef="sku">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> SKU </th>
+          <th mat-header-cell *matHeaderCellDef > SKU </th>
           <td mat-cell *matCellDef="let sku"> {{ sku.sku }} </td>
         </ng-container>
-  
+
+        <!-- Columns -->
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef> Quantity </th>
+          <td mat-cell *matCellDef="let sku"> {{ sku.quantity }} </td>
+        </ng-container>
+
       <!-- Dynamically display vendor columns -->
       <ng-container *ngFor="let vendor of vendorHeaders" [matColumnDef]="vendor">
         <th mat-header-cell *matHeaderCellDef> {{ vendor }} </th>
@@ -68,7 +88,7 @@
       </ng-container>
   
 <!-- Table Header -->
-<tr mat-header-row *matHeaderRowDef="displayedColumns" [ngStyle]="{'background-color': 'lightblue'}"></tr>
+<tr mat-header-row *matHeaderRowDef="displayedColumns" [ngStyle]="{'background-color': '#5a8869'}"></tr>
 
   
       <!-- Table Body -->
@@ -76,8 +96,9 @@
     </table>
 
     <!-- Error Message -->
-    <div *ngIf="skus.length === 0">
-      <p>No SKUs available to display.</p>
-    </div>
+  <!-- Error Message -->
+<div *ngIf="skus.length === 0" class="no-skus-container">
+  <p class="no-skus-message">No SKUs available to display.</p>
+</div>
   </div>
   
