@@ -1,0 +1,199 @@
+/* General container and layout styling */
+.container {
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  position: relative; /* Ensures the dropdown is positioned relative to this container */
+  
+}
+
+
+/* Upload section */
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff; /* White background for the form */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%;
+  max-width: 400px; /* Set a max width for the form */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+.upload-section {
+  display: flex;
+  justify-content: flex-start; /* Align to the left */
+}
+
+.upload-section input[type="file"] {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 300px; /* Adjust width as needed */
+  display: inline-block;
+}
+
+.upload-section button {
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 13px 82px;
+  cursor: pointer;
+  font-size: 16px; /* Increased text size */
+  display: inline-flex;
+  align-items: center;
+  border-radius: 18px;
+  margin-left: 60; /* Removed margin-left */
+}
+
+.upload-section button:hover {
+  background-color: #303f9f;
+}
+
+.upload-section .error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Optional: Style for error message */
+.error {
+  font-size: 14px;
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+button {
+  margin-bottom: 15px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+}
+
+button:hover {
+  background-color: #303f9f;
+}
+
+/* Error message styling */
+.error {
+  color: red;
+  font-size: 16px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Table styling */
+.table-container {
+  margin-top: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+}
+
+td {
+  background-color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Sorting and Header Cells */
+mat-sort-header {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+mat-sort-header:hover {
+  color: #3f51b5;
+}
+
+mat-header-cell {
+  font-weight: bold;
+}
+
+/* Pagination styling */
+mat-paginator {
+  margin-top: 20px;
+}
+
+
+
+
+/* Spinner and Loading Overlay */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-overlay mat-spinner {
+  margin-right: 10px;
+}
+
+/* Styling for "No Data" message when no data is available */
+.no-skus-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.no-skus-message {
+  font-size: 18px;
+  font-weight: 500;
+  color: #555;
+  text-align: center;
+}

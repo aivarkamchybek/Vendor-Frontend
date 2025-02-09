@@ -1,0 +1,52 @@
+<div class="container">
+    <h2>SKU Forecast</h2>
+    <form (ngSubmit)="getDaysLeft()" #skuForm="ngForm">
+      <mat-form-field appearance="fill">
+        <mat-label>SKU</mat-label>
+        <input matInput type="text" id="sku" [(ngModel)]="sku" name="sku" required #skuInput="ngModel" />
+        <mat-error *ngIf="skuInput.invalid && skuInput.touched">SKU is required.</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Current Stock</mat-label>
+        <input matInput type="number" id="stock" [(ngModel)]="currentStock" name="stock" required min="1" #stockInput="ngModel" />
+        <mat-error *ngIf="stockInput.invalid && stockInput.touched">Stock is required and must be greater than 0.</mat-error>
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" type="submit" [disabled]="skuForm.invalid">Get Days Left</button>
+    </form>
+  
+
+
+<!-- Display Success Message -->
+<div *ngIf="successMessage" style="padding-top: 20px;">
+    <mat-card class="success-card">
+      <mat-card-header>
+        <mat-card-title>Success</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <!-- Apply inline styles for bold and larger text on the number -->
+        <p style="color: green;">
+          {{ successMessage.split(':')[0] }}: 
+          <span style="font-weight: bold; font-size: 24px;">
+            {{ successMessage.split(':')[1] }}
+          </span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  
+    <!-- Display Error Message -->
+    <div *ngIf="errorMessage" style="padding-top: 20px;">
+      <mat-card class="error-card">
+        <mat-card-header>
+          <mat-card-title>Error</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p style="color: red;">{{ errorMessage }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  

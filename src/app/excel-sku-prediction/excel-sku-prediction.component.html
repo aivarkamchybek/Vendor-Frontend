@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="upload-section">
+    <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+      <input type="file" (change)="onFileChange($event)" accept=".xlsx,.xls,.csv" />
+      <button type="submit" [disabled]="uploadForm.invalid || isLoading">
+        {{ isLoading ? 'Uploading...' : 'Upload File' }}
+      </button>
+    </form>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  </div>
+
+  <!-- Table with Predictions -->
+  <div *ngIf="uploadedData.length > 0" class="table-container">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="sku">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortData('sku')"> SKU </th>
+        <td mat-cell *matCellDef="let element"> {{element.sku}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="days_left">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortData('days_left')"> Days Left </th>
+        <td mat-cell *matCellDef="let element"> {{element.days_left}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="uploadedData.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>
