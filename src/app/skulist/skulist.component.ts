@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { GetallskusService } from '../getallskus.service';
 
+
 // For xlsx library
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver'; // Import saveAs from file-saver
